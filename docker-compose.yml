@@ -1,0 +1,20 @@
+version: "3"
+
+networks:
+  outside:
+    external:
+      name: proxy
+
+services:
+  nntpd:
+    container_name: nntp
+    build:
+      context: /root/docker-data/nntp/
+    restart: always
+    volumes:
+      - /root/docker-data/nntp/data/:/var/spool/news/wendzelnntpd/
+      - /root/docker-data/nntp/wendzelnntpd.conf:/usr/local/etc/wendzelnntpd.conf
+#    networks:
+#      - outside
+    ports:
+       - "119:119/tcp"
